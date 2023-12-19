@@ -4,6 +4,7 @@ import jpa.fundamentals.pizzeria.persistense.entity.OrderEntity;
 import jpa.fundamentals.pizzeria.persistense.projection.OrderSummary;
 import jpa.fundamentals.pizzeria.persistense.repository.OrderRepository;
 import jpa.fundamentals.pizzeria.services.dto.RandomOrderDTO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,7 @@ public class OrderService {
         return (List<OrderEntity>) this.orderRepository.findAllByMethodIn(methods);
     }
 
+    @Secured({"ROLE_ADMIN"})
     public List<OrderEntity> getCustomerOrders(String idCustomer) {
         return  (List<OrderEntity>) this.orderRepository.findCustomerOrders(idCustomer);
     }

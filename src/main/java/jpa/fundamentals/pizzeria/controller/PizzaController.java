@@ -1,5 +1,8 @@
 package jpa.fundamentals.pizzeria.controller;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jpa.fundamentals.pizzeria.persistense.entity.PizzaEntity;
 import jpa.fundamentals.pizzeria.services.PizzaService;
 import jpa.fundamentals.pizzeria.services.dto.UpdatePizzaPriceDTO;
@@ -59,6 +62,8 @@ public class PizzaController {
         return  ResponseEntity.ok(this.pizzaService.getCheapest(price));
     }
 
+    @Operation(summary = "Create a pizza", description = "create a pizza")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping
     public ResponseEntity<PizzaEntity> add(@RequestBody PizzaEntity pizza) {
         if (pizza.getIdPizza() == null || this.pizzaService.exist(pizza.getIdPizza())){
